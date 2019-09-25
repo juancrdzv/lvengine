@@ -1,24 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import characters from "./characters.png";
+import "./App.css";
 
 function App() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    document.addEventListener("keydown", event => {
+      switch (event.key) {
+        case "ArrowRight":
+          setPosition(state => {
+            return { ...state, x: state.x + 10 };
+          });
+          break;
+        case "ArrowLeft":
+          setPosition(state => {
+            return { ...state, x: state.x - 10 };
+          });
+          break;
+        case "ArrowDown":
+          setPosition(state => {
+            return { ...state, y: state.y + 10 };
+          });
+          break;
+        case "ArrowUp":
+          setPosition(state => {
+            return { ...state, y: state.y - 10 };
+          });
+          break;
+      }
+    });
+  }, []);
+
+  let positionStyle = {
+    position: "absolute",
+    display: "inline-block",
+    top: position.y,
+    left: position.x,
+    backgroundImage: `url(${characters})`,
+    backgroundSize: "580px",
+    width: "50px",
+    height: "50px"
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div style={positionStyle}></div>
     </div>
   );
 }
