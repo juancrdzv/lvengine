@@ -1,50 +1,39 @@
-import React, { useEffect, useState } from "react";
-import characters from "./characters.png";
+import React, { useEffect, useRef } from "react";
+import { House, Ground, Player, Tree } from "./Components";
 import "./App.css";
 
 function App() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  let delta = useRef(0);
+  let lastFrameTimeMs = 0;
+
+  const mainLoop = timestamp => {
+    delta.current = timestamp - lastFrameTimeMs; // get the delta time since last frame
+    lastFrameTimeMs = timestamp;
+    requestAnimationFrame(mainLoop);
+  };
+
   useEffect(() => {
-    document.addEventListener("keydown", event => {
-      switch (event.key) {
-        case "ArrowRight":
-          setPosition(state => {
-            return { ...state, x: state.x + 10 };
-          });
-          break;
-        case "ArrowLeft":
-          setPosition(state => {
-            return { ...state, x: state.x - 10 };
-          });
-          break;
-        case "ArrowDown":
-          setPosition(state => {
-            return { ...state, y: state.y + 10 };
-          });
-          break;
-        case "ArrowUp":
-          setPosition(state => {
-            return { ...state, y: state.y - 10 };
-          });
-          break;
-      }
-    });
+    requestAnimationFrame(mainLoop);
   }, []);
 
-  let positionStyle = {
-    position: "absolute",
-    display: "inline-block",
-    top: position.y,
-    left: position.x,
-    backgroundImage: `url(${characters})`,
-    backgroundSize: "580px",
-    width: "50px",
-    height: "50px"
-  };
   return (
-    <div>
-      <div style={positionStyle}></div>
-    </div>
+    <Ground x={0} y={0} width={1024} height={768}>
+      <Tree y={-60} x={-60}></Tree>
+      <Tree y={90} x={-60}></Tree>
+      <Tree y={240} x={-60}></Tree>
+      <Tree y={390} x={-60}></Tree>
+      <Tree y={-60} x={60}></Tree>
+      <Tree y={-60} x={180}></Tree>
+      <Tree y={-60} x={300}></Tree>
+      <Tree y={-60} x={420}></Tree>
+      <Tree y={-60} x={540}></Tree>
+      <Tree y={-60} x={660}></Tree>
+      <House></House>
+      <Player
+        groundBounds={{ x: 0, y: 0, width: 1024, height: 768 }}
+        delta={delta}
+      ></Player>
+    </Ground>
   );
 }
 
