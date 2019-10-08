@@ -1,5 +1,5 @@
 import React from "react";
-import backgrounds from "../../assets/backgrounds.png";
+import backgrounds from "../../Assets/backgrounds.png";
 import { Sprite } from "../Sprite";
 
 export const GrassDisplay = props => {

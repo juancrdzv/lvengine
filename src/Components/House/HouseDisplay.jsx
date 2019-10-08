@@ -1,5 +1,5 @@
 import React from "react";
-import backgrounds from "../../assets/backgrounds.png";
+import backgrounds from "../../Assets/backgrounds.png";
 import { Sprite } from "../Sprite";
 
 export const HouseDisplay = props => {
@@ -11,8 +11,9 @@ export const HouseDisplay = props => {
       bSize={"1940px"}
       bX={"-944px"}
       bY={"-512px"}
-      x={"764px"}
+      x={764}
       y={-2}
+      addBounds={true}
     ></Sprite>
   );
 };

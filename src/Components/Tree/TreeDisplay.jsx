@@ -1,6 +1,6 @@
 import React from "react";
 import { Sprite } from "../Sprite";
-import backgrounds from "../../assets/backgrounds.png";
+import backgrounds from "../../Assets/backgrounds.png";
 
 export const TreeDisplay = props => {
   return (
@@ -13,6 +13,7 @@ export const TreeDisplay = props => {
       bX={1224}
       bY={153}
       bSize={1315}
+      addBounds={true}
     ></Sprite>
   );
 };

@@ -1,7 +1,7 @@
 export class Bounds {
   constructor(x, y, w, h) {
-    this.w = w;
-    this.h = h;
+    this.width = w;
+    this.height = h;
     this.x = x;
     this.y = y;
   }

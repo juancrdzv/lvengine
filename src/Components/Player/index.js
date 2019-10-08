@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { playerEvents } from "./events";
+import React, { useEffect, useState,useContext,useRef } from "react";
+import { playerEvents,setBoundsReference } from "./events";
 import { PlayerDisplay } from "./PlayerDisplay";
+import {BoundsContext} from "../../Contexts/BoundsContext"
+
 
 export const Player = props => {
   const { delta, groundBounds } = props;
@@ -9,8 +11,14 @@ export const Player = props => {
 
   const [frame, setFrame] = useState();
 
+  let boundsContext = useContext(BoundsContext);
+  
+  
+  setBoundsReference(boundsContext.objectsBounds);
+
   useEffect(() => {
     playerEvents(setBy, setPosition, setFrame, delta, groundBounds);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
