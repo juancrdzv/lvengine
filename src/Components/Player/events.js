@@ -31,6 +31,7 @@ export const playerEvents = (
     return false;
   };
   document.addEventListener("keydown", event => {
+    event.preventDefault();
     switch (event.key) {
       case "ArrowRight":
         setBy("-97px");

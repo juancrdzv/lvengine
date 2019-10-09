@@ -1,21 +1,9 @@
 import React from "react";
 import characters from "./characters.png";
+import {Sprite} from "../Sprite"
 
 export const PlayerDisplay = props => {
   const { position, by, frame } = props;
 
-  let playerStyle = {
-    position: "absolute",
-    display: "inline-block",
-    top: position.y,
-    left: position.x,
-    backgroundImage: `url(${characters})`,
-    backgroundSize: "580px",
-    width: "48px",
-    height: "48px",
-    backgroundPositionY: by,
-    backgroundPositionX: frame
-  };
-
-  return <div style={playerStyle}></div>;
+  return <Sprite bSize={"580px"} y={position.y} x={position.x} spriteImage={characters} bY={by} bX={frame} width={48} height={48}></Sprite>;
 };

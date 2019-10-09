@@ -4,7 +4,7 @@ import { Grass } from "../Grass";
 
 export const GroundDisplay = props => {
   return (
-    <Sprite border={"2px solid red"} backgroundColor={"#00801c7a"} {...props}>
+    <Sprite border={"2px solid red"} backgroundColor={"#459345"} {...props}>
       {props.children}
     </Sprite>
   );
