@@ -1,5 +1,5 @@
 import React from "react";
-import { House, Ground,Grass, Tree, Cactus,HorizontalGardener } from "../Components";
+import { House, Ground,Grass, Tree, Cactus,HorizontalGardener,VerticalGardener,Fence } from "../Components";
 
 export const World = (props)=>{
     let grass = [];
@@ -29,10 +29,16 @@ export const World = (props)=>{
         {grass}
         <Cactus x={300} y={500}></Cactus>
         <Cactus x={800} y={300}></Cactus>
+        <Fence x={706} y={500}></Fence>
+        <Fence x={784} y={500}></Fence>
+        <Fence x={863} y={500}></Fence>
+        <Fence x={942} y={500}></Fence>
         <HorizontalGardener x={119} y={100}></HorizontalGardener>
         <HorizontalGardener x={326} y={100}></HorizontalGardener>
         <HorizontalGardener x={119} y={394}></HorizontalGardener>
         <HorizontalGardener x={326} y={394}></HorizontalGardener>
+        <VerticalGardener x={400} y={231}></VerticalGardener>
+        <VerticalGardener x={109} y={231}></VerticalGardener>
     </Ground>
   )
 };
