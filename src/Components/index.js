@@ -7,3 +7,5 @@ export { Cactus } from "./Cactus";
 export { HorizontalGardener} from "./HorizontalGardener";
 export { VerticalGardener } from "./VerticalGardener";
 export { Fence } from "./Fence";
+export { Hud } from "./Hud";
+export { HudPlant } from "./HudPlant";

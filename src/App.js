@@ -1,7 +1,7 @@
 import React, { useState,useEffect, useRef } from "react";
 import { BoundsContext } from "./Contexts/BoundsContext"
 import { World } from "./Worlds";
-import { Player } from "./Components";
+import { Player,Hud,HudPlant } from "./Components";
 import "./App.css";
 
 function App() {
@@ -23,6 +23,12 @@ function App() {
 
   return (
     <BoundsContext.Provider value={{objectsBounds,setObjectsBounds}}>
+      <Hud>
+        <HudPlant></HudPlant>
+        <HudPlant></HudPlant>
+        <HudPlant></HudPlant>
+        <HudPlant></HudPlant>
+      </Hud>
       <World></World>
       <Player
         groundBounds={{ x: 0, y: 0, width: 1024, height: 768 }}
