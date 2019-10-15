@@ -1,4 +1,9 @@
 import React from "react";
+import { HudPlant } from "../HudPlant";
+import girasol from "../../Assets/girasol.png";
+import hongos from "../../Assets/hongos.png";
+import morado from "../../Assets/morado.png";
+import raro from "../../Assets/raro.png";
 
 export const HudDisplay = props => {
     const hudStyle = {
@@ -12,6 +17,11 @@ export const HudDisplay = props => {
       borderRadius: "0px 10px 11px 0px",
       border:"1px solid black",
     };
-    return (<div style={hudStyle}>{props.children}</div>);
+    return (<div style={hudStyle}>
+              <HudPlant background={girasol}></HudPlant>
+              <HudPlant background={hongos}></HudPlant>
+              <HudPlant background={morado}></HudPlant>
+              <HudPlant background={raro}></HudPlant>
+            </div>);
   };
   

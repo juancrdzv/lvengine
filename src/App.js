@@ -1,8 +1,10 @@
 import React, { useState,useEffect, useRef } from "react";
 import { BoundsContext } from "./Contexts/BoundsContext"
 import { World } from "./Worlds";
-import { Player,Hud,HudPlant } from "./Components";
+import { Player,Hud } from "./Components";
 import "./App.css";
+
+
 
 function App() {
   let delta = useRef(0);
@@ -23,12 +25,7 @@ function App() {
 
   return (
     <BoundsContext.Provider value={{objectsBounds,setObjectsBounds}}>
-      <Hud>
-        <HudPlant></HudPlant>
-        <HudPlant></HudPlant>
-        <HudPlant></HudPlant>
-        <HudPlant></HudPlant>
-      </Hud>
+      <Hud></Hud>
       <World></World>
       <Player
         groundBounds={{ x: 0, y: 0, width: 1024, height: 768 }}
