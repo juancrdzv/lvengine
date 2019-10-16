@@ -1,10 +1,14 @@
-import React from "react";
+import React,{useState} from "react";
 import {HudDisplay} from "./HudDisplay"
-
+import { HudContext } from  "../../Contexts"
 
 
 
 export const Hud = (props)=>{
-    
-    return(<HudDisplay {...props}></HudDisplay>);
+    const [hudSelectedButtons,setHudSelectedButtons] = useState([]);
+    return(
+        <HudContext.Provider value={{hudSelectedButtons,setHudSelectedButtons}}>
+            <HudDisplay {...props}></HudDisplay>
+        </HudContext.Provider>
+    );
 };

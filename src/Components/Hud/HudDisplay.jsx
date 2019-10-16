@@ -18,10 +18,10 @@ export const HudDisplay = props => {
       border:"1px solid black",
     };
     return (<div style={hudStyle}>
-              <HudPlant background={girasol}></HudPlant>
-              <HudPlant background={hongos}></HudPlant>
-              <HudPlant background={morado}></HudPlant>
-              <HudPlant background={raro}></HudPlant>
+              <HudPlant name={'sunflower'} background={girasol}></HudPlant>
+              <HudPlant name={'mushrooms'} background={hongos}></HudPlant>
+              <HudPlant name={'purple'} background={morado}></HudPlant>
+              <HudPlant name={'weird'} background={raro}></HudPlant>
             </div>);
   };
   

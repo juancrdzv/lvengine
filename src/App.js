@@ -1,5 +1,5 @@
 import React, { useState,useEffect, useRef } from "react";
-import { BoundsContext } from "./Contexts/BoundsContext"
+import { BoundsContext } from "./Contexts"
 import { World } from "./Worlds";
 import { Player,Hud } from "./Components";
 import "./App.css";
@@ -10,7 +10,7 @@ function App() {
   let delta = useRef(0);
   let lastFrameTimeMs = 0;
   let [objectsBounds,setObjectsBounds] = useState([]);
-  
+  let [selectedHudItem,setSelectedHudItem] = useState({});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const mainLoop = timestamp => {
     delta.current = timestamp - lastFrameTimeMs; // get the delta time since last frame
