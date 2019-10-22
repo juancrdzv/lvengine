@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useContext,useRef} from "react";
 import {HudPlantDisplay} from "./HudPlantDisplay";
-import {HudContext} from '../../Contexts';
+import {HudContext,GlobalContext} from '../../Contexts';
 
 
 export const HudPlant = (props)=>{
@@ -8,6 +8,7 @@ export const HudPlant = (props)=>{
 
     const [border,setBorder] = useState("1px solid white");
     let boundsContext = useContext(HudContext);
+    let globalContext = useContext(GlobalContext);
     let isSelected = useRef(false);
 
     useEffect(()=>{
@@ -29,6 +30,7 @@ export const HudPlant = (props)=>{
             setBorder("1px solid white");
         }else{
             setBorder("10px solid white");
+            globalContext.setHudSelectedItem(name);
         }
 
         isSelected.current = !isSelected.current;    

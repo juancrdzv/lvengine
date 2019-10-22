@@ -9,3 +9,4 @@ export { VerticalGardener } from "./VerticalGardener";
 export { Fence } from "./Fence";
 export { Hud } from "./Hud";
 export { HudPlant } from "./HudPlant";
+export { Sunflower } from "./Sunflower";

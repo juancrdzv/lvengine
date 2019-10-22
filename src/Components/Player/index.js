@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
-import { playerEvents, setBoundsReference } from "./events";
+import { playerEvents, setBoundsReference,setPositionReference,setHudItem } from "./events";
 import { PlayerDisplay } from "./PlayerDisplay";
-import { BoundsContext } from "../../Contexts/BoundsContext";
+import { BoundsContext,GlobalContext } from "../../Contexts";
 
 export const Player = props => {
   const { delta, groundBounds } = props;
@@ -11,11 +11,15 @@ export const Player = props => {
   const [frame, setFrame] = useState();
 
   let boundsContext = useContext(BoundsContext);
-
+  let globalContext = useContext(GlobalContext);
+  
+  
   setBoundsReference(boundsContext.objectsBounds);
-
+  setPositionReference(position);
+  setHudItem(globalContext.hudSelectedItem);
+  
   useEffect(() => {
-    playerEvents(setBy, setPosition, setFrame, delta, groundBounds);
+    playerEvents(setBy, setPosition, setFrame, delta, groundBounds,globalContext.setPlants);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

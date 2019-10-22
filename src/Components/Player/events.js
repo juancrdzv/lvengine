@@ -1,9 +1,22 @@
 /* eslint-disable default-case */
+import React from "react";
 import { Bounds } from "../../Utils";
+import { Sunflower } from "../Sunflower";
+
 let allBounds = null;
+let position = null;
+let hudItem = null;
+
+export const setHudItem = myRef =>{
+  hudItem = myRef;
+};
 
 export const setBoundsReference = myRef => {
   allBounds = myRef;
+};
+
+export const setPositionReference = myRef =>{
+  position = myRef;
 };
 
 export const playerEvents = (
@@ -11,7 +24,8 @@ export const playerEvents = (
   setPosition,
   setFrame,
   delta,
-  groundBounds
+  groundBounds,
+  setPlants,
 ) => {
   let vel = 0.4;
   let playerWidth = 50;
@@ -87,6 +101,31 @@ export const playerEvents = (
           }
           return state;
         });
+        break;
+      case " ":
+        const {x,y} = position;
+        switch(hudItem){
+          case "sunflower":
+              setPlants((state)=>{
+                return [...state,<Sunflower x={x} y={y}></Sunflower>];
+              });
+          break;
+          case "mushrooms":
+              setPlants((state)=>{
+                return [...state,"sunflower"];
+              });
+          break;
+          case "purple":
+              setPlants((state)=>{
+                return [...state,"sunflower"];
+              });
+          break;
+          case "weird":
+              setPlants((state)=>{
+                return [...state,"sunflower"];
+              });
+          break;
+        }
         break;
     }
     if (currentFrame < charAniFrames.length) {
