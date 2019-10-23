@@ -2,22 +2,22 @@
 import React from "react";
 import { Bounds } from "../../Utils";
 import { Sunflower } from "../Sunflower";
+import { Mushromm } from "../Mushromm";
+import { Purple } from "../Purple";
+import { Weird } from "../Weird";
 
 let allBounds = null;
 let position = null;
 let hudItem = null;
 
-export const setHudItem = myRef =>{
-  hudItem = myRef;
+export const setReferences = myRef =>{
+  let { objectsBounds,_position,hudSelectedItem} = myRef;
+  hudItem = hudSelectedItem;
+  position = _position;
+  allBounds = objectsBounds;
 };
 
-export const setBoundsReference = myRef => {
-  allBounds = myRef;
-};
 
-export const setPositionReference = myRef =>{
-  position = myRef;
-};
 
 export const playerEvents = (
   setBy,
@@ -104,25 +104,28 @@ export const playerEvents = (
         break;
       case " ":
         const {x,y} = position;
+        let d = new Date();
+        let mili = d.getMilliseconds();
+        
         switch(hudItem){
           case "sunflower":
               setPlants((state)=>{
-                return [...state,<Sunflower x={x} y={y}></Sunflower>];
+                return [...state,<Sunflower key={mili} x={x} y={y}></Sunflower>];
               });
           break;
           case "mushrooms":
               setPlants((state)=>{
-                return [...state,"sunflower"];
+                return [...state,<Mushromm key={mili} x={x} y={y}></Mushromm>];
               });
           break;
           case "purple":
               setPlants((state)=>{
-                return [...state,"sunflower"];
+                return [...state,<Purple key={mili} x={x} y={y}></Purple>];
               });
           break;
           case "weird":
               setPlants((state)=>{
-                return [...state,"sunflower"];
+                return [...state,<Weird key={mili} x={x} y={y}></Weird>];
               });
           break;
         }

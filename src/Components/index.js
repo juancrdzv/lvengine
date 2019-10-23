@@ -10,3 +10,6 @@ export { Fence } from "./Fence";
 export { Hud } from "./Hud";
 export { HudPlant } from "./HudPlant";
 export { Sunflower } from "./Sunflower";
+export { Mushromm } from './Mushromm';
+export { Purple } from './Purple';
+export { Weird } from './Weird';

@@ -12,7 +12,8 @@ export const SpriteDisplay = props => {
     x,
     y,
     backgroundColor,
-    border
+    border,
+    zIndex
   } = props;
 
   spriteStyle = "width" in props ? { ...spriteStyle, width } : spriteStyle;
@@ -36,6 +37,7 @@ export const SpriteDisplay = props => {
   spriteStyle =
     "border" in props ? { ...spriteStyle, border: border } : spriteStyle;
 
+  spriteStyle = "zIndex" in props ? {...spriteStyle, zIndex:zIndex } : spriteStyle;
   spriteStyle["position"] = "absolute";
   spriteStyle["display"] = "inline-block";
 
