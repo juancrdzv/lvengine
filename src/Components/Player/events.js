@@ -44,8 +44,10 @@ export const playerEvents = (
     }
     return false;
   };
+
   document.addEventListener("keydown", event => {
     event.preventDefault();
+
     switch (event.key) {
       case "ArrowRight":
         setBy("-97px");
@@ -110,7 +112,7 @@ export const playerEvents = (
         switch(hudItem){
           case "sunflower":
               setPlants((state)=>{
-                return [...state,<Sunflower key={mili} x={x} y={y}></Sunflower>];
+                return [...state,<Sunflower key={mili} ine={mili} x={x} y={y}></Sunflower>];
               });
           break;
           case "mushrooms":

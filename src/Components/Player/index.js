@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useContext,useRef } from "react";
 import { playerEvents, setReferences } from "./events";
 import { PlayerDisplay } from "./PlayerDisplay";
 import { BoundsContext,GlobalContext } from "../../Contexts";
@@ -14,7 +14,7 @@ export const Player = props => {
   let { hudSelectedItem,setPlants } = useContext(GlobalContext);
   
   
-  setReferences({ objectsBounds ,_position:position, hudSelectedItem});
+  setReferences({ objectsBounds,_position:position, hudSelectedItem});
   
   
   useEffect(() => {
