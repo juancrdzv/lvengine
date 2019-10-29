@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { HudPlantDisplay } from "./HudPlantDisplay";
+import { HudGardenPieceDisplay } from "./HudGardenPieceDisplay";
 import { HudContext, GlobalContext } from '../../Contexts';
 
 
-export const HudPlant = (props) => {
+export const HudGardenPiece = (props) => {
     const { name, defaultSelected } = props;
 
     const [border, setBorder] = useState("1px solid white");
@@ -44,11 +44,11 @@ export const HudPlant = (props) => {
             setBorder("1px solid white");
         } else {
             setBorder("10px solid white");
-            globalContext.setHudPlant(name);
+            globalContext.setHudSelectedItem(name);
         }
 
         isSelected.current = !isSelected.current;
     }
 
-    return <HudPlantDisplay onClick={handleClick} border={border} {...props}></HudPlantDisplay>;
+    return <HudGardenPieceDisplay onClick={handleClick} border={border} {...props}></HudGardenPieceDisplay>;
 };

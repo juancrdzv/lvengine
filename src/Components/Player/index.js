@@ -11,10 +11,10 @@ export const Player = props => {
   const [frame, setFrame] = useState();
 
   let { objectsBounds } = useContext(BoundsContext);
-  let { hudSelectedItem,setPlants } = useContext(GlobalContext);
+  let { hudSelectedItem,setHudSelectedItem,setPlants } = useContext(GlobalContext);
   
   
-  setReferences({ objectsBounds,_position:position, hudSelectedItem});
+  setReferences({ objectsBounds,_position:position, hudSelectedItem,setHudSelectedItem});
   
   
   useEffect(() => {

@@ -9,12 +9,13 @@ import { Weird } from "../Weird";
 let allBounds = null;
 let position = null;
 let hudItem = null;
-
+let setHudPlant = null;
 export const setReferences = myRef =>{
-  let { objectsBounds,_position,hudSelectedItem} = myRef;
+  let { objectsBounds,_position,hudSelectedItem,setHudSelectedPlant} = myRef;
   hudItem = hudSelectedItem;
   position = _position;
   allBounds = objectsBounds;
+  setHudPlant = setHudSelectedPlant;
 };
 
 
@@ -45,8 +46,28 @@ export const playerEvents = (
     return false;
   };
 
+  document.addEventListener("mousemove", event =>{
+    const { clientX,clientY } = event;
+  });
+  
   document.addEventListener("keydown", event => {
     event.preventDefault();
+
+    if(event.key === "1"){
+      setHudPlant('sunflower');
+    }
+
+    if(event.key === "2"){
+      setHudPlant('mushrooms');
+    }
+
+    if(event.key === "3"){
+      setHudPlant('purple');
+    }
+
+    if(event.key === "4"){
+      setHudPlant('weird');
+    }
 
     switch (event.key) {
       case "ArrowRight":
