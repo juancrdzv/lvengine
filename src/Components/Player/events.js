@@ -8,11 +8,11 @@ import { Weird } from "../Weird";
 
 let allBounds = null;
 let position = null;
-let hudItem = null;
+let hudPlant = null;
 let setHudPlant = null;
 export const setReferences = myRef =>{
-  let { objectsBounds,_position,hudSelectedItem,setHudSelectedPlant} = myRef;
-  hudItem = hudSelectedItem;
+  let { objectsBounds,_position,hudSelectedPlant,setHudSelectedPlant} = myRef;
+  hudPlant = hudSelectedPlant;
   position = _position;
   allBounds = objectsBounds;
   setHudPlant = setHudSelectedPlant;
@@ -130,7 +130,7 @@ export const playerEvents = (
         let d = new Date();
         let mili = d.getMilliseconds();
         
-        switch(hudItem){
+        switch(hudPlant){
           case "sunflower":
               setPlants((state)=>{
                 return [...state,<Sunflower key={mili} ine={mili} x={x} y={y}></Sunflower>];

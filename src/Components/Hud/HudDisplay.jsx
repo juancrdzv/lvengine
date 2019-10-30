@@ -1,5 +1,6 @@
 import React from "react";
 import { HudPlant } from "../HudPlant";
+import { HudGardenPiece } from "../HudGardenPiece";
 import girasol from "../../Assets/girasol.png";
 import hongos from "../../Assets/hongos.png";
 import morado from "../../Assets/morado.png";
@@ -38,7 +39,10 @@ export const HudDisplay = props => {
                 <HudPlant name={'weird'} background={raro} defaultSelected={false}></HudPlant>
               </div>
               <div style={rightStyle}>
-                <HudPlant name={'sunflower'} background={girasol} defaultSelected={false}></HudPlant>               
+                <HudGardenPiece name={'fenceH'} background={girasol} defaultSelected={false}></HudGardenPiece>   
+                <HudGardenPiece name={'fenceV'} background={girasol} defaultSelected={false}></HudGardenPiece>   
+                <HudGardenPiece name={'rockH'} background={girasol} defaultSelected={false}></HudGardenPiece>   
+                <HudGardenPiece name={'rockV'} background={girasol} defaultSelected={false}></HudGardenPiece>               
               </div>
             </div>);
   };

@@ -12,7 +12,7 @@ export const HudGardenPiece = (props) => {
     let isSelected = useRef(defaultSelected);
 
     useEffect(() => {
-        boundsContext.setHudSelectedButtons(state => {
+        boundsContext.setHudSelectedButtonsR(state => {
             return [...state, { name, border, setBorder, isSelected }]
         });
         if (defaultSelected) {
@@ -22,14 +22,14 @@ export const HudGardenPiece = (props) => {
     }, []);
 
     useEffect(() => {
-        if (name === globalContext.hudSelectedItem) {
+        if (name === globalContext.hudSelectedPiece) {
             cleanHud();
             setBorder("10px solid white");
         }
-    }, [globalContext.hudSelectedItem]);
+    }, [globalContext.hudSelectedPiece]);
 
     const cleanHud = () => {
-        boundsContext.hudSelectedButtons.forEach(element => {
+        boundsContext.hudSelectedButtonsR.forEach(element => {
             if (element.name !== name) {
                 element.setBorder("1px solid white");
                 element.isSelected.current = false;
@@ -44,7 +44,7 @@ export const HudGardenPiece = (props) => {
             setBorder("1px solid white");
         } else {
             setBorder("10px solid white");
-            globalContext.setHudSelectedItem(name);
+            globalContext.setHudSelectedPiece(name);
         }
 
         isSelected.current = !isSelected.current;

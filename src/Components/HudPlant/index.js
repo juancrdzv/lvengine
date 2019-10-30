@@ -22,11 +22,11 @@ export const HudPlant = (props) => {
     }, []);
 
     useEffect(() => {
-        if (name === globalContext.hudSelectedItem) {
+        if (name === globalContext.hudSelectedPlant) {
             cleanHud();
             setBorder("10px solid white");
         }
-    }, [globalContext.hudSelectedItem]);
+    }, [globalContext.hudSelectedPlant]);
 
     const cleanHud = () => {
         boundsContext.hudSelectedButtons.forEach(element => {
@@ -44,7 +44,7 @@ export const HudPlant = (props) => {
             setBorder("1px solid white");
         } else {
             setBorder("10px solid white");
-            globalContext.setHudPlant(name);
+            globalContext.setHudSelectedPlant(name);
         }
 
         isSelected.current = !isSelected.current;
