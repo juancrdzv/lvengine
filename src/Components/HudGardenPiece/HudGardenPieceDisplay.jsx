@@ -9,6 +9,7 @@ export const HudGardenPieceDisplay = (props)=>{
         margin: "25px",
         backgroundImage: `url(${props.background}`,
         backgroundSize: "contain",
+        backgroundRepeat: "no-repeat", 
     }
     return <div onClick={props.onClick} style={hudStyle}></div>
 };

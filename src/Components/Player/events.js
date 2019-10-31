@@ -10,12 +10,17 @@ let allBounds = null;
 let position = null;
 let hudPlant = null;
 let setHudPlant = null;
+let _gardenItemPosition = null;
+let _setGardenItemPosition = null;
+
 export const setReferences = myRef =>{
-  let { objectsBounds,_position,hudSelectedPlant,setHudSelectedPlant} = myRef;
+  let { objectsBounds,_position,hudSelectedPlant,setHudSelectedPlant,gardenItemPosition,setGardenItemPosition} = myRef;
   hudPlant = hudSelectedPlant;
   position = _position;
   allBounds = objectsBounds;
   setHudPlant = setHudSelectedPlant;
+  _gardenItemPosition = gardenItemPosition;
+  _setGardenItemPosition = setGardenItemPosition;
 };
 
 

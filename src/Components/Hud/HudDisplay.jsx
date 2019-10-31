@@ -5,6 +5,10 @@ import girasol from "../../Assets/girasol.png";
 import hongos from "../../Assets/hongos.png";
 import morado from "../../Assets/morado.png";
 import raro from "../../Assets/raro.png";
+import fenceV from "../../Assets/fenceVertical.png";
+import fenceH from "../../Assets/fenceHorizontal.png";
+import gardenV from "../../Assets/gardenVertical.png";
+import gardenH from "../../Assets/gardenHorizontal.png";
 
 export const HudDisplay = props => {
     const hudStyle = {
@@ -39,10 +43,10 @@ export const HudDisplay = props => {
                 <HudPlant name={'weird'} background={raro} defaultSelected={false}></HudPlant>
               </div>
               <div style={rightStyle}>
-                <HudGardenPiece name={'fenceH'} background={girasol} defaultSelected={false}></HudGardenPiece>   
-                <HudGardenPiece name={'fenceV'} background={girasol} defaultSelected={false}></HudGardenPiece>   
-                <HudGardenPiece name={'rockH'} background={girasol} defaultSelected={false}></HudGardenPiece>   
-                <HudGardenPiece name={'rockV'} background={girasol} defaultSelected={false}></HudGardenPiece>               
+                <HudGardenPiece name={'fenceH'} background={fenceH} defaultSelected={false}></HudGardenPiece>   
+                <HudGardenPiece name={'fenceV'} background={fenceV} defaultSelected={false}></HudGardenPiece>   
+                <HudGardenPiece name={'gardenH'} background={gardenH} defaultSelected={false}></HudGardenPiece>   
+                <HudGardenPiece name={'gardenV'} background={gardenV} defaultSelected={false}></HudGardenPiece>               
               </div>
             </div>);
   };

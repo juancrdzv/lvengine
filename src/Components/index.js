@@ -13,3 +13,4 @@ export { Sunflower } from "./Sunflower";
 export { Mushromm } from './Mushromm';
 export { Purple } from './Purple';
 export { Weird } from './Weird';
+export { GardenItem } from './GardenItem'
