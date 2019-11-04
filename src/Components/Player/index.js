@@ -11,14 +11,14 @@ export const Player = props => {
   const [frame, setFrame] = useState();
 
   let { objectsBounds } = useContext(BoundsContext);
-  let { hudSelectedPlant, setHudSelectedPlant, setPlants, gardenItemPosition, setGardenItemPosition } = useContext(GlobalContext);
+  let { state,dispatch } = useContext(GlobalContext);
 
 
-  setReferences({ objectsBounds, _position: position, hudSelectedPlant, setHudSelectedPlant, gardenItemPosition, setGardenItemPosition });
+  setReferences({ objectsBounds, _position: position,state,dispatch });
 
 
   useEffect(() => {
-    playerEvents(setBy, setPosition, setFrame, delta, groundBounds, setPlants);
+    playerEvents(setBy, setPosition, setFrame, delta, groundBounds);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

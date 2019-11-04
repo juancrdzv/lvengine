@@ -8,19 +8,15 @@ import { Weird } from "../Weird";
 
 let allBounds = null;
 let position = null;
-let hudPlant = null;
-let setHudPlant = null;
-let _gardenItemPosition = null;
-let _setGardenItemPosition = null;
+let _dispatch = null;
+let _state = null;
 
-export const setReferences = myRef =>{
-  let { objectsBounds,_position,hudSelectedPlant,setHudSelectedPlant,gardenItemPosition,setGardenItemPosition} = myRef;
-  hudPlant = hudSelectedPlant;
+export const setReferences = myRef => {
+  let { objectsBounds, _position, state, dispatch } = myRef;
   position = _position;
   allBounds = objectsBounds;
-  setHudPlant = setHudSelectedPlant;
-  _gardenItemPosition = gardenItemPosition;
-  _setGardenItemPosition = setGardenItemPosition;
+  _dispatch = dispatch;
+  _state = state;
 };
 
 
@@ -31,7 +27,6 @@ export const playerEvents = (
   setFrame,
   delta,
   groundBounds,
-  setPlants,
 ) => {
   let vel = 0.4;
   let playerWidth = 50;
@@ -51,27 +46,28 @@ export const playerEvents = (
     return false;
   };
 
-  document.addEventListener("mousemove", event =>{
-    const { clientX,clientY } = event;
+  document.addEventListener("mousemove", event => {
+    const { clientX, clientY } = event;
+    _dispatch({ type: "SET_GARDEN_ITEM_POSITION", payload: { x: clientX + 10, y: clientY + 10 } });
   });
-  
+
   document.addEventListener("keydown", event => {
     event.preventDefault();
 
-    if(event.key === "1"){
-      setHudPlant('sunflower');
+    if (event.key === "1") {
+      _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'sunflower' });
     }
 
-    if(event.key === "2"){
-      setHudPlant('mushrooms');
+    if (event.key === "2") {
+      _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'mushrooms' });
     }
 
-    if(event.key === "3"){
-      setHudPlant('purple');
+    if (event.key === "3") {
+      _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'purple' });
     }
 
-    if(event.key === "4"){
-      setHudPlant('weird');
+    if (event.key === "4") {
+      _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'weird' });
     }
 
     switch (event.key) {
@@ -131,31 +127,23 @@ export const playerEvents = (
         });
         break;
       case " ":
-        const {x,y} = position;
+        const { x, y } = position;
         let d = new Date();
         let mili = d.getMilliseconds();
-        
-        switch(hudPlant){
+
+        switch (_state.hudSelectedPlant) {
           case "sunflower":
-              setPlants((state)=>{
-                return [...state,<Sunflower key={mili} ine={mili} x={x} y={y}></Sunflower>];
-              });
-          break;
+            _dispatch({ type: 'SET_PLANTS', payload: <Sunflower key={mili} ine={mili} x={x} y={y}></Sunflower> });
+            break;
           case "mushrooms":
-              setPlants((state)=>{
-                return [...state,<Mushromm key={mili} x={x} y={y}></Mushromm>];
-              });
-          break;
+            _dispatch({ type: 'SET_PLANTS', payload: <Mushromm key={mili} x={x} y={y}></Mushromm> });
+            break;
           case "purple":
-              setPlants((state)=>{
-                return [...state,<Purple key={mili} x={x} y={y}></Purple>];
-              });
-          break;
+            _dispatch({ type: 'SET_PLANTS', payload: <Purple key={mili} x={x} y={y}></Purple> });
+            break;
           case "weird":
-              setPlants((state)=>{
-                return [...state,<Weird key={mili} x={x} y={y}></Weird>];
-              });
-          break;
+            _dispatch({ type: 'SET_PLANTS', payload: <Weird key={mili} x={x} y={y}></Weird> });
+            break;
         }
         break;
     }

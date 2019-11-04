@@ -10,7 +10,8 @@ export const HudPlant = (props) => {
     let boundsContext = useContext(HudContext);
     let globalContext = useContext(GlobalContext);
     let isSelected = useRef(defaultSelected);
-
+    let {state,dispatch } = globalContext;
+    
     useEffect(() => {
         boundsContext.setHudSelectedButtons(state => {
             return [...state, { name, border, setBorder, isSelected }]
@@ -22,11 +23,11 @@ export const HudPlant = (props) => {
     }, []);
 
     useEffect(() => {
-        if (name === globalContext.hudSelectedPlant) {
+        if (name === state.hudSelectedPlant) {
             cleanHud();
             setBorder("10px solid white");
         }
-    }, [globalContext.hudSelectedPlant]);
+    }, [state.hudSelectedPlant]);
 
     const cleanHud = () => {
         boundsContext.hudSelectedButtons.forEach(element => {
@@ -44,7 +45,7 @@ export const HudPlant = (props) => {
             setBorder("1px solid white");
         } else {
             setBorder("10px solid white");
-            globalContext.setHudSelectedPlant(name);
+            dispatch({ type:'SET_HUD_SELECTED_PLANT',payload: name });
         }
 
         isSelected.current = !isSelected.current;
