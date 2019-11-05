@@ -1,20 +1,39 @@
 import React from "react";
-import { Bounds } from "../../Utils";
-import { Sunflower } from "../Sunflower";
-import { Mushromm } from "../Mushromm";
-import { Purple } from "../Purple";
-import { Weird } from "../Weird";
+import fh from "../../Assets/fenceHorizontal.png";
+import fv from "../../Assets/fenceVertical.png";
+import gv from "../../Assets/gardenVertical.png";
+import gh from "../../Assets/gardenHorizontal.png";
 
 export const GardenItemDisplay = props => {
     const { position } = props;
     const { x, y } = position;
+    let item = null;
     
+    console.log(props.selectedIPiece);
+    switch(props.selectedIPiece){
+        case "fenceH":
+            item = fh;
+        break;
+        case "fenceV":
+            item = fv;
+        break;
+        case "gardenH":
+            item = gh;
+        break;
+        case "gardenV":
+            item = gv;
+        break;
+    }
 
     const gardenItemStyle = {
         position: "absolute",
         left: x,
         top: y,
+        backgroundImage: `url(${item})`,
+        width: '50px',
+        height: '50px',
+        backgroundRepeat: "no-repeat", 
     };
-    
-    return <div style={gardenItemStyle}>ALGO</div>;
+
+    return <div style={gardenItemStyle}></div>;
 };

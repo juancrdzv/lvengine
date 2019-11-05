@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useReducer } from "react";
 import { BoundsContext, GlobalContext } from "./Contexts"
 import { World } from "./Worlds";
 import { Player, Hud, GardenItem } from "./Components";
+import { globalReducer } from "./Reducers";
+import { gloabalStore } from "./Stores";
 import "./App.css";
 
 
@@ -11,28 +13,7 @@ function App() {
   let lastFrameTimeMs = 0;
   const [objectsBounds, setObjectsBounds] = useState([]);
  
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "SET_HUD_SELECTED_PLANT":
-        return { ...state, hudSelectedPlant: action.payload };
-      case "SET_PLANTS":
-        return { ...state, plants: [state.plants, action.payload] };
-      case "SET_PIECES":
-        return state;
-      case "SET_GARDEN_ITEM_POSITION":
-        return { ...state, gardenItemPosition: action.payload };
-      case "SET_HUD_SELECTED_PIECE":
-        return { ...state, hudSelectedPiece: action.payload };
-    }
-  };
-
-  const [state, dispatch] = useReducer(reducer, {
-    gardenItemPosition: { x: 0, y: 0 },
-    hudSelectedPlant: 'sunflower',
-    hudSelectedPiece: '',
-    plants: [],
-    pieces: [],
-  });
+  const [state, dispatch] = useReducer(globalReducer,gloabalStore);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const mainLoop = timestamp => {
@@ -59,7 +40,7 @@ function App() {
         ></Player>
         {state.plants}
         {state.pieces}
-        <GardenItem position={state.gardenItemPosition}></GardenItem>
+        <GardenItem position={state.gardenItemPosition} selectedIPiece={state.hudSelectedPiece}></GardenItem>
       </BoundsContext.Provider>
     </GlobalContext.Provider>
   );

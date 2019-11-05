@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useContext, useRef,Fragment } from "react";
-import { HudPlantDisplay } from "./HudPlantDisplay";
-import { HudContext, GlobalContext } from '../../Contexts';
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { HudGardenPieceDisplay } from "./HudGardenPieceDisplay";
+import { HudContext, GlobalContext } from '../../../Contexts';
 
 
-export const HudItem = (props) => {
+export const HudGardenPiece = (props) => {
     const { name, defaultSelected } = props;
 
     const [border, setBorder] = useState("1px solid white");
-    let boundsContext = useContext(HudContext);
-    let globalContext = useContext(GlobalContext);
+    let { hudSelectedButtonsR, setHudSelectedButtonsR } = useContext(HudContext);
+    let { state: { hudSelectedPiece }, dispatch } = useContext(GlobalContext);
     let isSelected = useRef(defaultSelected);
 
     useEffect(() => {
-        boundsContext.setHudSelectedButtons(state => {
+        setHudSelectedButtonsR(state => {
             return [...state, { name, border, setBorder, isSelected }]
         });
         if (defaultSelected) {
@@ -22,14 +22,14 @@ export const HudItem = (props) => {
     }, []);
 
     useEffect(() => {
-        if (name === globalContext.hudSelectedItem) {
+        if (name === hudSelectedPiece) {
             cleanHud();
             setBorder("10px solid white");
         }
-    }, [globalContext.hudSelectedItem]);
+    }, [hudSelectedPiece]);
 
     const cleanHud = () => {
-        boundsContext.hudSelectedButtons.forEach(element => {
+        hudSelectedButtonsR.forEach(element => {
             if (element.name !== name) {
                 element.setBorder("1px solid white");
                 element.isSelected.current = false;
@@ -44,11 +44,11 @@ export const HudItem = (props) => {
             setBorder("1px solid white");
         } else {
             setBorder("10px solid white");
-            globalContext.setHudSelectedPlant(name);
+            dispatch({ type: "SET_HUD_SELECTED_PIECE", payload: name });
         }
 
         isSelected.current = !isSelected.current;
     }
 
-    return <Fragment onClick={handleClick} border={border} {...props}>{props.children}</Fragment>;
+    return <HudGardenPieceDisplay onClick={handleClick} border={border} {...props}></HudGardenPieceDisplay>;
 };

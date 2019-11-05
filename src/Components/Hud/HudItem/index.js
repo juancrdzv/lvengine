@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { HudPlantDisplay } from "./HudPlantDisplay";
-import { HudContext, GlobalContext } from '../../Contexts';
+/*import React, { useState, useEffect, useContext, useRef,Fragment } from "react";
+import { HudPlantDisplay } from "../HudPlant/HudPlantDisplay";
+import { HudContext, GlobalContext } from '../../../Contexts';
 
 
-export const HudPlant = (props) => {
+export const HudItem = (props) => {
     const { name, defaultSelected } = props;
 
     const [border, setBorder] = useState("1px solid white");
     let boundsContext = useContext(HudContext);
     let globalContext = useContext(GlobalContext);
     let isSelected = useRef(defaultSelected);
-    let {state,dispatch } = globalContext;
-    
+
     useEffect(() => {
         boundsContext.setHudSelectedButtons(state => {
             return [...state, { name, border, setBorder, isSelected }]
@@ -23,11 +22,11 @@ export const HudPlant = (props) => {
     }, []);
 
     useEffect(() => {
-        if (name === state.hudSelectedPlant) {
+        if (name === globalContext.hudSelectedItem) {
             cleanHud();
             setBorder("10px solid white");
         }
-    }, [state.hudSelectedPlant]);
+    }, [globalContext.hudSelectedItem]);
 
     const cleanHud = () => {
         boundsContext.hudSelectedButtons.forEach(element => {
@@ -45,11 +44,11 @@ export const HudPlant = (props) => {
             setBorder("1px solid white");
         } else {
             setBorder("10px solid white");
-            dispatch({ type:'SET_HUD_SELECTED_PLANT',payload: name });
+            globalContext.setHudSelectedPlant(name);
         }
 
         isSelected.current = !isSelected.current;
     }
 
-    return <HudPlantDisplay onClick={handleClick} border={border} {...props}></HudPlantDisplay>;
-};
+    return <Fragment onClick={handleClick} border={border} {...props}>{props.children}</Fragment>;
+};*/

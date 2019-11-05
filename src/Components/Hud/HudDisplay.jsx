@@ -1,6 +1,6 @@
 import React from "react";
-import { HudPlant } from "../HudPlant";
-import { HudGardenPiece } from "../HudGardenPiece";
+import { HudPlant } from "./HudPlant";
+import { HudGardenPiece } from "./HudGardenPiece";
 import girasol from "../../Assets/girasol.png";
 import hongos from "../../Assets/hongos.png";
 import morado from "../../Assets/morado.png";

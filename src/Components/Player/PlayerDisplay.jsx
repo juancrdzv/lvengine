@@ -1,5 +1,5 @@
 import React from "react";
-import characters from "./characters.png";
+import characters from "../../Assets/characters.png";
 import { Sprite } from "../Sprite"
 
 export const PlayerDisplay = props => {

@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { HudGardenPieceDisplay } from "./HudGardenPieceDisplay";
-import { HudContext, GlobalContext } from '../../Contexts';
+import { HudPlantDisplay } from "./HudPlantDisplay";
+import { HudContext, GlobalContext } from '../../../Contexts';
 
 
-export const HudGardenPiece = (props) => {
+export const HudPlant = (props) => {
     const { name, defaultSelected } = props;
 
     const [border, setBorder] = useState("1px solid white");
     let boundsContext = useContext(HudContext);
     let globalContext = useContext(GlobalContext);
     let isSelected = useRef(defaultSelected);
-
+    let {state,dispatch } = globalContext;
+    
     useEffect(() => {
-        boundsContext.setHudSelectedButtonsR(state => {
+        boundsContext.setHudSelectedButtons(state => {
             return [...state, { name, border, setBorder, isSelected }]
         });
         if (defaultSelected) {
@@ -22,14 +23,14 @@ export const HudGardenPiece = (props) => {
     }, []);
 
     useEffect(() => {
-        if (name === globalContext.hudSelectedPiece) {
+        if (name === state.hudSelectedPlant) {
             cleanHud();
             setBorder("10px solid white");
         }
-    }, [globalContext.hudSelectedPiece]);
+    }, [state.hudSelectedPlant]);
 
     const cleanHud = () => {
-        boundsContext.hudSelectedButtonsR.forEach(element => {
+        boundsContext.hudSelectedButtons.forEach(element => {
             if (element.name !== name) {
                 element.setBorder("1px solid white");
                 element.isSelected.current = false;
@@ -44,11 +45,11 @@ export const HudGardenPiece = (props) => {
             setBorder("1px solid white");
         } else {
             setBorder("10px solid white");
-            globalContext.setHudSelectedPiece(name);
+            dispatch({ type:'SET_HUD_SELECTED_PLANT',payload: name });
         }
 
         isSelected.current = !isSelected.current;
     }
 
-    return <HudGardenPieceDisplay onClick={handleClick} border={border} {...props}></HudGardenPieceDisplay>;
+    return <HudPlantDisplay onClick={handleClick} border={border} {...props}></HudPlantDisplay>;
 };
