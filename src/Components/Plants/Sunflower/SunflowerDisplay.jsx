@@ -1,6 +1,6 @@
 import React from "react";
-import sunflower from "../../Assets/girasol.png" 
-import {Sprite} from "../Sprite";
+import sunflower from "../../../Assets/girasol.png" 
+import {Sprite} from "../../Sprite";
 
 export const SunflowerDisplay = (props)=>{
     

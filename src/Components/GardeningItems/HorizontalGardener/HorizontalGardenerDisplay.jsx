@@ -1,6 +1,6 @@
 import React from "react";
-import backgrounds from "../../Assets/backgrounds.png";
-import { Sprite } from "../Sprite";
+import backgrounds from "../../../Assets/backgrounds.png";
+import { Sprite } from "../../Sprite";
 
 export const HorizontalGardenerDisplay = (props)=>{
     return (<Sprite width={"94px"} 

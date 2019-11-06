@@ -5,7 +5,7 @@ export const globalReducer = (state, action) => {
       case "SET_PLANTS":
         return { ...state, plants: [state.plants, action.payload] };
       case "SET_PIECES":
-        return state;
+        return { ...state, pieces: [state.pieces,action.payload] };
       case "SET_GARDEN_ITEM_POSITION":
         return { ...state, gardenItemPosition: action.payload };
       case "SET_HUD_SELECTED_PIECE":

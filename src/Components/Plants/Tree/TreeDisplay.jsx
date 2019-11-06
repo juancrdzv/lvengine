@@ -1,6 +1,6 @@
 import React from "react";
-import { Sprite } from "../Sprite";
-import backgrounds from "../../Assets/backgrounds.png";
+import { Sprite } from "../../Sprite";
+import backgrounds from "../../../Assets/backgrounds.png";
 
 export const TreeDisplay = props => {
   return (

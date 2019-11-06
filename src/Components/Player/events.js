@@ -1,10 +1,8 @@
 /* eslint-disable default-case */
 import React from "react";
 import { Bounds } from "../../Utils";
-import { Sunflower } from "../Sunflower";
-import { Mushromm } from "../Mushromm";
-import { Purple } from "../Purple";
-import { Weird } from "../Weird";
+import { Sunflower, Mushromm, Purple, Weird } from "../Plants";
+import { Fence, HorizontalGardener, VerticalGardener } from "../GardeningItems";
 
 let allBounds = null;
 let position = null;
@@ -18,8 +16,6 @@ export const setReferences = myRef => {
   _dispatch = dispatch;
   _state = state;
 };
-
-
 
 export const playerEvents = (
   setBy,
@@ -48,29 +44,50 @@ export const playerEvents = (
 
   document.addEventListener("mousemove", event => {
     const { clientX, clientY } = event;
-    _dispatch({ type: "SET_GARDEN_ITEM_POSITION", payload: { x: clientX + 10, y: clientY + 10 } });
+    if (clientX >= 0 && clientX <= 1024) {
+      _dispatch({ type: "SET_GARDEN_ITEM_POSITION", payload: { x: clientX + 10, y: clientY + 10 } });
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    const { clientX, clientY } = event;
+    let d = new Date();
+    let mili = d.getMilliseconds();
+
+    if (clientX >= 0 && clientX <= 1024) {
+      switch (_state.hudSelectedPiece) {
+        case "fenceH":
+
+          break;
+        case "fenceV":
+          break;
+        case "gardenH":
+          _dispatch({ type: 'SET_PIECES', payload: <HorizontalGardener key={mili} x={clientX} y={clientY}></HorizontalGardener> });
+          break;
+        case "gardenV":
+          _dispatch({ type: 'SET_PIECES', payload: <VerticalGardener key={mili} x={clientX} y={clientY}></VerticalGardener> });
+          break;
+      }
+    }
+
   });
 
   document.addEventListener("keydown", event => {
     event.preventDefault();
 
-    if (event.key === "1") {
-      _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'sunflower' });
-    }
-
-    if (event.key === "2") {
-      _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'mushrooms' });
-    }
-
-    if (event.key === "3") {
-      _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'purple' });
-    }
-
-    if (event.key === "4") {
-      _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'weird' });
-    }
-
     switch (event.key) {
+      case "1":
+        _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'sunflower' });
+        break;
+      case "2":
+        _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'mushrooms' });
+        break;
+      case "3":
+        _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'purple' });
+        break;
+      case "4":
+        _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'weird' });
+        break;
       case "ArrowRight":
         setBy("-97px");
         setPosition(state => {

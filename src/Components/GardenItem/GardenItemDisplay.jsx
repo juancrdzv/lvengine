@@ -9,7 +9,6 @@ export const GardenItemDisplay = props => {
     const { x, y } = position;
     let item = null;
     
-    console.log(props.selectedIPiece);
     switch(props.selectedIPiece){
         case "fenceH":
             item = fh;
