@@ -40,7 +40,7 @@ function App() {
         ></Player>
         {state.plants}
         {state.pieces}
-        <GardenItem position={state.gardenItemPosition} selectedIPiece={state.hudSelectedPiece}></GardenItem>
+        {state.showGardenItem && <GardenItem position={state.gardenItemPosition} selectedIPiece={state.hudSelectedPiece}></GardenItem>}
       </BoundsContext.Provider>
     </GlobalContext.Provider>
   );

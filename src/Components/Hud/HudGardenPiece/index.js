@@ -25,6 +25,8 @@ export const HudGardenPiece = (props) => {
         if (name === hudSelectedPiece) {
             cleanHud();
             setBorder("10px solid white");
+        }else if(hudSelectedPiece === ''){
+            cleanHud();
         }
     }, [hudSelectedPiece]);
 

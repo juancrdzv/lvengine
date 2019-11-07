@@ -2,7 +2,7 @@
 import React from "react";
 import { Bounds } from "../../Utils";
 import { Sunflower, Mushromm, Purple, Weird } from "../Plants";
-import { Fence, HorizontalGardener, VerticalGardener } from "../GardeningItems";
+import { Fence, VerticalFence, HorizontalGardener, VerticalGardener } from "../GardeningItems";
 
 let allBounds = null;
 let position = null;
@@ -46,6 +46,9 @@ export const playerEvents = (
     const { clientX, clientY } = event;
     if (clientX >= 0 && clientX <= 1024) {
       _dispatch({ type: "SET_GARDEN_ITEM_POSITION", payload: { x: clientX + 10, y: clientY + 10 } });
+      _dispatch({ type: "SHOW_GARDEN_ITEM", payload: true });
+    } else {
+      _dispatch({ type: "SHOW_GARDEN_ITEM", payload: false });
     }
   });
 
@@ -54,12 +57,13 @@ export const playerEvents = (
     let d = new Date();
     let mili = d.getMilliseconds();
 
-    if (clientX >= 0 && clientX <= 1024) {
+    if (clientX >= 0 && clientX <= 1024 && _state.showGardenItem) {
       switch (_state.hudSelectedPiece) {
-        case "fenceH":
-
-          break;
         case "fenceV":
+          _dispatch({ type: 'SET_PIECES', payload: <VerticalFence key={mili} x={clientX} y={clientY}></VerticalFence> });
+          break;
+        case "fenceH":
+          _dispatch({ type: 'SET_PIECES', payload: <Fence key={mili} x={clientX} y={clientY}></Fence> });
           break;
         case "gardenH":
           _dispatch({ type: 'SET_PIECES', payload: <HorizontalGardener key={mili} x={clientX} y={clientY}></HorizontalGardener> });
@@ -76,6 +80,10 @@ export const playerEvents = (
     event.preventDefault();
 
     switch (event.key) {
+      case "Escape":
+        _dispatch({ type: "SHOW_GARDEN_ITEM", payload: false });
+        _dispatch({ type: 'SET_HUD_SELECTED_PIECE', payload: '' });
+        break;
       case "1":
         _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'sunflower' });
         break;
