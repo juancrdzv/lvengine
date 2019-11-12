@@ -14,6 +14,54 @@ let position = null;
 let _dispatch = null;
 let _state = null;
 
+const offsets = {
+  "chrome": {
+    "fenceV": {
+      offsetX: 6.25,
+      offsetY: 0
+    },
+    "fenceH": {
+      offsetX: 25,
+      offsetY: -12.5,
+    },
+    "gardenH": {
+      offsetX: 25,
+      offsetY: -12.5,
+    },
+    "gardenV": {
+      offsetX: 12.5,
+      offsetY: 0
+    },
+    "": {
+      offsetX: 0,
+      offsetY: 0
+    }
+  },
+  "general": {
+    "fenceV": {
+      offsetX: 6.25,
+      offsetY: 25
+    },
+    "fenceH": {
+      offsetX: 25,
+      offsetY: 12.5,
+    },
+    "gardenH": {
+      offsetX: 25,
+      offsetY: 12.5
+    },
+    "gardenV": {
+      offsetX: 12.5,
+      offsetY: 25,
+    },
+    "": {
+      offsetX: 0,
+      offsetY: 0
+    }
+  }
+};
+
+
 export const setReferences = myRef => {
   let { objectsBounds, _position, state, dispatch } = myRef;
   position = _position;
@@ -50,25 +98,12 @@ export const playerEvents = (
   document.addEventListener("mousemove", event => {
     const { clientX, clientY } = event;
     if (clientX >= 0 && clientX <= 1024) {
-      let offsetX, offsetY;
-      switch (_state.hudSelectedPiece) {
-        case "fenceV":
-          offsetX = 6.25;
-          offsetY = 25;
-          break;
-        case "fenceH":
-          offsetX = 25;
-          offsetY = 12.5;
-          break;
-        case "gardenH":
-          offsetX = 25;
-          offsetY = 12.5;
-          break;
-        case "gardenV":
-          offsetX = 12.5;
-          offsetY = 25;
-          break;
-      }
+      let isChrome;
+
+      isChrome = navigator.userAgent.indexOf("Chrome") > -1 ? 'chrome' : 'general';
+
+      let { offsetX, offsetY } = offsets[isChrome][_state.hudSelectedPiece]
+
       _dispatch({
         type: "SET_GARDEN_ITEM_POSITION",
         payload: { x: clientX - offsetX, y: clientY - offsetY }
@@ -86,6 +121,8 @@ export const playerEvents = (
     let mili = d.getMilliseconds();
 
     if (clientX >= 0 && clientX <= 1024 && _state.showGardenItem) {
+      let isChrome = navigator.userAgent.indexOf("Chrome") > -1 ? 'chrome' : 'general';
+
       switch (_state.hudSelectedPiece) {
         case "fenceV":
           _dispatch({
@@ -94,7 +131,7 @@ export const playerEvents = (
               <VerticalFence
                 key={mili}
                 x={clientX - 7.5}
-                y={clientY - 42.5}
+                y={clientY - (isChrome ? 0 : 42.5)}
               ></VerticalFence>
             )
           });
@@ -103,7 +140,7 @@ export const playerEvents = (
           _dispatch({
             type: "SET_PIECES",
             payload: (
-              <Fence key={mili} x={clientX - 42} y={clientY - 20.5}></Fence>
+              <Fence key={mili} x={clientX - 42} y={clientY - (isChrome ? 0 : 20.5)}></Fence>
             )
           });
           break;
@@ -114,7 +151,7 @@ export const playerEvents = (
               <HorizontalGardener
                 key={mili}
                 x={clientX - 47}
-                y={clientY - 23.5}
+                y={clientY - (isChrome ? 0 : 23.5)}
               ></HorizontalGardener>
             )
           });
@@ -126,7 +163,7 @@ export const playerEvents = (
               <VerticalGardener
                 key={mili}
                 x={clientX - 16.5}
-                y={clientY - 31}
+                y={clientY - (isChrome ? 0 : 31)}
               ></VerticalGardener>
             )
           });
