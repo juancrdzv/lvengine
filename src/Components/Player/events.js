@@ -2,7 +2,12 @@
 import React from "react";
 import { Bounds } from "../../Utils";
 import { Sunflower, Mushromm, Purple, Weird } from "../Plants";
-import { Fence, VerticalFence, HorizontalGardener, VerticalGardener } from "../GardeningItems";
+import {
+  Fence,
+  VerticalFence,
+  HorizontalGardener,
+  VerticalGardener
+} from "../GardeningItems";
 
 let allBounds = null;
 let position = null;
@@ -22,7 +27,7 @@ export const playerEvents = (
   setPosition,
   setFrame,
   delta,
-  groundBounds,
+  groundBounds
 ) => {
   let vel = 0.4;
   let playerWidth = 50;
@@ -45,14 +50,37 @@ export const playerEvents = (
   document.addEventListener("mousemove", event => {
     const { clientX, clientY } = event;
     if (clientX >= 0 && clientX <= 1024) {
-      _dispatch({ type: "SET_GARDEN_ITEM_POSITION", payload: { x: clientX + 10, y: clientY + 10 } });
+      let offsetX, offsetY;
+      switch (_state.hudSelectedPiece) {
+        case "fenceV":
+          offsetX = 6.25;
+          offsetY = 25;
+          break;
+        case "fenceH":
+          offsetX = 25;
+          offsetY = 12.5;
+          break;
+        case "gardenH":
+          offsetX = 25;
+          offsetY = 12.5;
+          break;
+        case "gardenV":
+          offsetX = 12.5;
+          offsetY = 25;
+          break;
+      }
+      _dispatch({
+        type: "SET_GARDEN_ITEM_POSITION",
+        payload: { x: clientX - offsetX, y: clientY - offsetY }
+      });
+
       _dispatch({ type: "SHOW_GARDEN_ITEM", payload: true });
     } else {
       _dispatch({ type: "SHOW_GARDEN_ITEM", payload: false });
     }
   });
 
-  document.addEventListener("click", (event) => {
+  document.addEventListener("click", event => {
     const { clientX, clientY } = event;
     let d = new Date();
     let mili = d.getMilliseconds();
@@ -60,20 +88,51 @@ export const playerEvents = (
     if (clientX >= 0 && clientX <= 1024 && _state.showGardenItem) {
       switch (_state.hudSelectedPiece) {
         case "fenceV":
-          _dispatch({ type: 'SET_PIECES', payload: <VerticalFence key={mili} x={clientX} y={clientY}></VerticalFence> });
+          _dispatch({
+            type: "SET_PIECES",
+            payload: (
+              <VerticalFence
+                key={mili}
+                x={clientX - 7.5}
+                y={clientY - 42.5}
+              ></VerticalFence>
+            )
+          });
           break;
         case "fenceH":
-          _dispatch({ type: 'SET_PIECES', payload: <Fence key={mili} x={clientX} y={clientY}></Fence> });
+          _dispatch({
+            type: "SET_PIECES",
+            payload: (
+              <Fence key={mili} x={clientX - 42} y={clientY - 20.5}></Fence>
+            )
+          });
           break;
         case "gardenH":
-          _dispatch({ type: 'SET_PIECES', payload: <HorizontalGardener key={mili} x={clientX} y={clientY}></HorizontalGardener> });
+          _dispatch({
+            type: "SET_PIECES",
+            payload: (
+              <HorizontalGardener
+                key={mili}
+                x={clientX - 47}
+                y={clientY - 23.5}
+              ></HorizontalGardener>
+            )
+          });
           break;
         case "gardenV":
-          _dispatch({ type: 'SET_PIECES', payload: <VerticalGardener key={mili} x={clientX} y={clientY}></VerticalGardener> });
+          _dispatch({
+            type: "SET_PIECES",
+            payload: (
+              <VerticalGardener
+                key={mili}
+                x={clientX - 16.5}
+                y={clientY - 31}
+              ></VerticalGardener>
+            )
+          });
           break;
       }
     }
-
   });
 
   document.addEventListener("keydown", event => {
@@ -82,19 +141,19 @@ export const playerEvents = (
     switch (event.key) {
       case "Escape":
         _dispatch({ type: "SHOW_GARDEN_ITEM", payload: false });
-        _dispatch({ type: 'SET_HUD_SELECTED_PIECE', payload: '' });
+        _dispatch({ type: "SET_HUD_SELECTED_PIECE", payload: "" });
         break;
       case "1":
-        _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'sunflower' });
+        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "sunflower" });
         break;
       case "2":
-        _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'mushrooms' });
+        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "mushrooms" });
         break;
       case "3":
-        _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'purple' });
+        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "purple" });
         break;
       case "4":
-        _dispatch({ type: 'SET_HUD_SELECTED_PLANT', payload: 'weird' });
+        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "weird" });
         break;
       case "ArrowRight":
         setBy("-97px");
@@ -158,16 +217,28 @@ export const playerEvents = (
 
         switch (_state.hudSelectedPlant) {
           case "sunflower":
-            _dispatch({ type: 'SET_PLANTS', payload: <Sunflower key={mili} ine={mili} x={x} y={y}></Sunflower> });
+            _dispatch({
+              type: "SET_PLANTS",
+              payload: <Sunflower key={mili} ine={mili} x={x} y={y}></Sunflower>
+            });
             break;
           case "mushrooms":
-            _dispatch({ type: 'SET_PLANTS', payload: <Mushromm key={mili} x={x} y={y}></Mushromm> });
+            _dispatch({
+              type: "SET_PLANTS",
+              payload: <Mushromm key={mili} x={x} y={y}></Mushromm>
+            });
             break;
           case "purple":
-            _dispatch({ type: 'SET_PLANTS', payload: <Purple key={mili} x={x} y={y}></Purple> });
+            _dispatch({
+              type: "SET_PLANTS",
+              payload: <Purple key={mili} x={x} y={y}></Purple>
+            });
             break;
           case "weird":
-            _dispatch({ type: 'SET_PLANTS', payload: <Weird key={mili} x={x} y={y}></Weird> });
+            _dispatch({
+              type: "SET_PLANTS",
+              payload: <Weird key={mili} x={x} y={y}></Weird>
+            });
             break;
         }
         break;
