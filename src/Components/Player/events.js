@@ -8,6 +8,7 @@ import {
   HorizontalGardener,
   VerticalGardener
 } from "../GardeningItems";
+import { offsets, hud_plants } from "./constants";
 
 let allBounds = null;
 let position = null;
@@ -97,12 +98,9 @@ export const playerEvents = (
 
   document.addEventListener("mousemove", event => {
     const { clientX, clientY } = event;
+
     if (clientX >= 0 && clientX <= 1024) {
-      let isChrome;
-
-      isChrome = navigator.userAgent.indexOf("Chrome") > -1 ? 'chrome' : 'general';
-
-      let { offsetX, offsetY } = offsets[isChrome][_state.hudSelectedPiece]
+      let { offsetX, offsetY } = offsets[_state.hudSelectedPiece];
 
       _dispatch({
         type: "SET_GARDEN_ITEM_POSITION",
@@ -181,16 +179,13 @@ export const playerEvents = (
         _dispatch({ type: "SET_HUD_SELECTED_PIECE", payload: "" });
         break;
       case "1":
-        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "sunflower" });
-        break;
       case "2":
-        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "mushrooms" });
-        break;
       case "3":
-        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "purple" });
-        break;
       case "4":
-        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "weird" });
+        _dispatch({
+          type: "SET_HUD_SELECTED_PLANT",
+          payload: hud_plants[event.key]
+        });
         break;
       case "ArrowRight":
         setBy("-97px");
