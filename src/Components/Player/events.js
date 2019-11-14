@@ -8,6 +8,7 @@ import {
   HorizontalGardener,
   VerticalGardener
 } from "../GardeningItems";
+import { offsets, hud_plants } from "./constants";
 
 let allBounds = null;
 let position = null;
@@ -49,26 +50,10 @@ export const playerEvents = (
 
   document.addEventListener("mousemove", event => {
     const { clientX, clientY } = event;
+
     if (clientX >= 0 && clientX <= 1024) {
-      let offsetX, offsetY;
-      switch (_state.hudSelectedPiece) {
-        case "fenceV":
-          offsetX = 6.25;
-          offsetY = 25;
-          break;
-        case "fenceH":
-          offsetX = 25;
-          offsetY = 12.5;
-          break;
-        case "gardenH":
-          offsetX = 25;
-          offsetY = 12.5;
-          break;
-        case "gardenV":
-          offsetX = 12.5;
-          offsetY = 25;
-          break;
-      }
+      let { offsetX, offsetY } = offsets[_state.hudSelectedPiece];
+
       _dispatch({
         type: "SET_GARDEN_ITEM_POSITION",
         payload: { x: clientX - offsetX, y: clientY - offsetY }
@@ -144,16 +129,13 @@ export const playerEvents = (
         _dispatch({ type: "SET_HUD_SELECTED_PIECE", payload: "" });
         break;
       case "1":
-        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "sunflower" });
-        break;
       case "2":
-        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "mushrooms" });
-        break;
       case "3":
-        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "purple" });
-        break;
       case "4":
-        _dispatch({ type: "SET_HUD_SELECTED_PLANT", payload: "weird" });
+        _dispatch({
+          type: "SET_HUD_SELECTED_PLANT",
+          payload: hud_plants[event.key]
+        });
         break;
       case "ArrowRight":
         setBy("-97px");
