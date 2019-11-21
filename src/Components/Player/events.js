@@ -1,67 +1,14 @@
 /* eslint-disable default-case */
 import React from "react";
 import { Bounds } from "../../Utils";
-import { Sunflower, Mushromm, Purple, Weird } from "../Plants";
-import {
-  Fence,
-  VerticalFence,
-  HorizontalGardener,
-  VerticalGardener
-} from "../GardeningItems";
+
 import { offsets, hud_plants } from "./constants";
+import { factory } from "./factory";
 
 let allBounds = null;
 let position = null;
 let _dispatch = null;
 let _state = null;
-
-const offsets = {
-  "chrome": {
-    "fenceV": {
-      offsetX: 6.25,
-      offsetY: 0
-    },
-    "fenceH": {
-      offsetX: 25,
-      offsetY: -12.5,
-    },
-    "gardenH": {
-      offsetX: 25,
-      offsetY: -12.5,
-    },
-    "gardenV": {
-      offsetX: 12.5,
-      offsetY: 0
-    },
-    "": {
-      offsetX: 0,
-      offsetY: 0
-    }
-  },
-  "general": {
-    "fenceV": {
-      offsetX: 6.25,
-      offsetY: 25
-    },
-    "fenceH": {
-      offsetX: 25,
-      offsetY: 12.5,
-    },
-    "gardenH": {
-      offsetX: 25,
-      offsetY: 12.5
-    },
-    "gardenV": {
-      offsetX: 12.5,
-      offsetY: 25,
-    },
-    "": {
-      offsetX: 0,
-      offsetY: 0
-    }
-  }
-};
-
 
 export const setReferences = myRef => {
   let { objectsBounds, _position, state, dispatch } = myRef;
@@ -115,58 +62,12 @@ export const playerEvents = (
 
   document.addEventListener("click", event => {
     const { clientX, clientY } = event;
-    let d = new Date();
-    let mili = d.getMilliseconds();
 
     if (clientX >= 0 && clientX <= 1024 && _state.showGardenItem) {
-      let isChrome = navigator.userAgent.indexOf("Chrome") > -1 ? 'chrome' : 'general';
-
-      switch (_state.hudSelectedPiece) {
-        case "fenceV":
-          _dispatch({
-            type: "SET_PIECES",
-            payload: (
-              <VerticalFence
-                key={mili}
-                x={clientX - 7.5}
-                y={clientY - (isChrome ? 0 : 42.5)}
-              ></VerticalFence>
-            )
-          });
-          break;
-        case "fenceH":
-          _dispatch({
-            type: "SET_PIECES",
-            payload: (
-              <Fence key={mili} x={clientX - 42} y={clientY - (isChrome ? 0 : 20.5)}></Fence>
-            )
-          });
-          break;
-        case "gardenH":
-          _dispatch({
-            type: "SET_PIECES",
-            payload: (
-              <HorizontalGardener
-                key={mili}
-                x={clientX - 47}
-                y={clientY - (isChrome ? 0 : 23.5)}
-              ></HorizontalGardener>
-            )
-          });
-          break;
-        case "gardenV":
-          _dispatch({
-            type: "SET_PIECES",
-            payload: (
-              <VerticalGardener
-                key={mili}
-                x={clientX - 16.5}
-                y={clientY - (isChrome ? 0 : 31)}
-              ></VerticalGardener>
-            )
-          });
-          break;
-      }
+      _dispatch({
+        type: "SET_PIECES",
+        payload: factory(_state.hudSelectedPiece, clientX, clientY)
+      });
     }
   });
 
@@ -247,32 +148,10 @@ export const playerEvents = (
         let d = new Date();
         let mili = d.getMilliseconds();
 
-        switch (_state.hudSelectedPlant) {
-          case "sunflower":
-            _dispatch({
-              type: "SET_PLANTS",
-              payload: <Sunflower key={mili} ine={mili} x={x} y={y}></Sunflower>
-            });
-            break;
-          case "mushrooms":
-            _dispatch({
-              type: "SET_PLANTS",
-              payload: <Mushromm key={mili} x={x} y={y}></Mushromm>
-            });
-            break;
-          case "purple":
-            _dispatch({
-              type: "SET_PLANTS",
-              payload: <Purple key={mili} x={x} y={y}></Purple>
-            });
-            break;
-          case "weird":
-            _dispatch({
-              type: "SET_PLANTS",
-              payload: <Weird key={mili} x={x} y={y}></Weird>
-            });
-            break;
-        }
+        _dispatch({
+          type: "SET_PLANTS",
+          payload: factory(_state.hudSelectedPlant, x, y)
+        });
         break;
     }
     if (currentFrame < charAniFrames.length) {
