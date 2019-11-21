@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useReducer } from "react";
 import { BoundsContext, GlobalContext } from "./Contexts"
-import { World } from "./Worlds";
-import { Player, Hud, GardenItem } from "./Components";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Menu,Game } from "./Components";
 import { globalReducer } from "./Reducers";
 import { gloabalStore } from "./Stores";
 import "./App.css";
@@ -12,8 +12,8 @@ function App() {
   let delta = useRef(0);
   let lastFrameTimeMs = 0;
   const [objectsBounds, setObjectsBounds] = useState([]);
- 
-  const [state, dispatch] = useReducer(globalReducer,gloabalStore);
+
+  const [state, dispatch] = useReducer(globalReducer, gloabalStore);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const mainLoop = timestamp => {
@@ -32,15 +32,13 @@ function App() {
   return (
     <GlobalContext.Provider value={store}>
       <BoundsContext.Provider value={{ objectsBounds, setObjectsBounds }}>
-        <Hud></Hud>
-        <World></World>
-        <Player
-          groundBounds={{ x: 0, y: 0, width: 1024, height: 768 }}
-          delta={delta}
-        ></Player>
-        {state.plants}
-        {state.pieces}
-        {state.showGardenItem && <GardenItem position={state.gardenItemPosition} selectedIPiece={state.hudSelectedPiece}></GardenItem>}
+        <BrowserRouter>
+          <Switch>
+            <Route exact path='/' component={Menu} />
+            <Route exact path='/game' render={() => <Game state={state} delta={delta}></Game>} />
+            <Route exact path='/gardenadmin' render={() => <div>En construccion</div>} />
+          </Switch>
+        </BrowserRouter>
       </BoundsContext.Provider>
     </GlobalContext.Provider>
   );
