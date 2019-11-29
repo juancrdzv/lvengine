@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useReducer } from "react";
 import { BoundsContext, GlobalContext } from "./Contexts"
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Menu,Game } from "./Components";
+import { Login, Game } from "./Components";
 import { globalReducer } from "./Reducers";
 import { gloabalStore } from "./Stores";
 import "./App.css";
@@ -34,7 +34,7 @@ function App() {
       <BoundsContext.Provider value={{ objectsBounds, setObjectsBounds }}>
         <BrowserRouter>
           <Switch>
-            <Route exact path='/' component={Menu} />
+            <Route exact path='/' render={() => <Login dispatch={dispatch}></Login>} />
             <Route exact path='/game' render={() => <Game state={state} delta={delta}></Game>} />
             <Route exact path='/gardenadmin' render={() => <div>En construccion</div>} />
           </Switch>

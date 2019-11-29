@@ -6,4 +6,5 @@ export * from "./GardeningItems"
 export * from './Hud';
 export * from './GardenItem';
 export * from './Game';
-export * from './Menu'
+export * from './Menu';
+export * from './Login';

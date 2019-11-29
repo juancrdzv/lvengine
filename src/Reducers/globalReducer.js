@@ -12,5 +12,7 @@ export const globalReducer = (state, action) => {
       return { ...state, hudSelectedPiece: action.payload };
     case "SHOW_GARDEN_ITEM":
       return { ...state, showGardenItem: action.payload };
+    case "SET_USER":
+      return { ...state, user: action.payload }
   }
 };

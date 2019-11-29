@@ -4,9 +4,10 @@ import { World } from "../../Worlds";
 
 
 export const Game = (props) => {
-    const { state,delta } = props;
+    const { state, state: { user }, delta } = props;
+
     return (
-        <Fragment>
+        user ? <Fragment>
             <Hud></Hud>
             <World></World>
             <Player
@@ -16,5 +17,5 @@ export const Game = (props) => {
             {state.plants}
             {state.pieces}
             {state.showGardenItem && <GardenItem position={state.gardenItemPosition} selectedIPiece={state.hudSelectedPiece}></GardenItem>}
-        </Fragment>);
+        </Fragment> : <div>Pleaser login</div>);
 };

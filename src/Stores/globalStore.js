@@ -5,4 +5,5 @@ export const gloabalStore = {
     hudSelectedPiece: '',
     plants: [],
     pieces: [],
+    user: null,
 };
