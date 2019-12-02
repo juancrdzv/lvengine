@@ -3,7 +3,7 @@ let app = express();
 let mysql = require('mysql');
 let cors = require('cors');
 let bodyParser = require('body-parser');
-let jwt  = require('jsonwebtoken');
+let jwt = require('jsonwebtoken');
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -33,10 +33,19 @@ app.post('/login', (req, res) => {
             expiresIn: 60 * 60 * 24 // expires in 24 hours
         });
 
+        console.log(token);
+        
         res.send({
             token
         });
     });
+});
+
+app.post('/snapshot', (req, res) => {
+    const { body: { token } } = req;
+
+    console.log(token);
+    console.log( jwt.decode(token, {complete: true}));
 });
 
 app.get('/users', (req, res) => {

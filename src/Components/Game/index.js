@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Player, Hud, GardenItem } from "../";
+import { Player, Hud, GardenItem,Snapshot } from "../";
 import { World } from "../../Worlds";
 
 
@@ -9,6 +9,7 @@ export const Game = (props) => {
     return (
         user ? <Fragment>
             <Hud></Hud>
+            <Snapshot state={state}></Snapshot>
             <World></World>
             <Player
                 groundBounds={{ x: 0, y: 0, width: 1024, height: 768 }}
