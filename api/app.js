@@ -29,12 +29,10 @@ app.post('/login', (req, res) => {
     connection.query(`SELECT * FROM user WHERE username='${username}' AND password='${password}'`, (err, rows, fields) => {
         if (err) throw err;
 
-        let token = jwt.sign({ username: req.username }, 'Secret Password', {
+        let token = jwt.sign({ username }, 'Secret Password', {
             expiresIn: 60 * 60 * 24 // expires in 24 hours
         });
 
-        console.log(token);
-        
         res.send({
             token
         });
@@ -42,18 +40,19 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/snapshot', (req, res) => {
-    const { body: { token } } = req;
+    const { body: { token, snapshot } } = req;
 
-    console.log(token);
-    console.log( jwt.decode(token, {complete: true}));
+    let payload = jwt.verify(token, 'Secret Password');
+
+    const { username } = payload;
+
+    if (username) {
+        const now = new Date()
+        const secondsSinceEpoch = Math.round(now.getTime() / 1000)
+        
+        const jsonName = `${username}${secondsSinceEpoch}`;
+    }
 });
 
-app.get('/users', (req, res) => {
-    connection.query('SELECT * FROM user', (err, rows, fields) => {
-        if (err) throw err;
-        console.log('User :', rows[0]);
-    });
-    res.send('Index Page');
-});
 
 app.listen('3008');
