@@ -1,7 +1,7 @@
 import React from "react";
 
 export const SnapshotDisplay = (props) => {
-    const { click } = props;
+    const { click, gotoSnapshots } = props;
 
     const snapStyle = {
         position: "absolute",
@@ -15,5 +15,6 @@ export const SnapshotDisplay = (props) => {
 
     return <div style={snapStyle}>
         <button onClick={click}>Take Snapshot</button>
+        <button onClick={gotoSnapshots}>Show snapshots</button>
     </div>;
 };

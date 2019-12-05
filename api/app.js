@@ -5,6 +5,8 @@ let cors = require('cors');
 let bodyParser = require('body-parser');
 let jwt = require('jsonwebtoken');
 
+const SECRET = 'Secret Password';
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -29,7 +31,7 @@ app.post('/login', (req, res) => {
     connection.query(`SELECT * FROM user WHERE username='${username}' AND password='${password}'`, (err, rows, fields) => {
         if (err) throw err;
 
-        let token = jwt.sign({ username }, 'Secret Password', {
+        let token = jwt.sign({ username, id: rows[0].id }, SECRET, {
             expiresIn: 60 * 60 * 24 // expires in 24 hours
         });
 
@@ -43,7 +45,7 @@ app.post('/login', (req, res) => {
 app.post('/snapshot', (req, res) => {
     const { body: { token, snapshot, id } } = req;
 
-    let payload = jwt.verify(token, 'Secret Password');
+    let payload = jwt.verify(token, SECRET);
 
     const { username } = payload;
 
@@ -65,8 +67,23 @@ app.post('/snapshot', (req, res) => {
     }
 });
 
-app.get('/snapshots', (req, res) => { 
-    console.log(req.query);
+app.get('/snapshots', (req, res) => {
+    const { query: { tk } } = req;
+
+    let payload = jwt.verify(tk, SECRET);
+
+    const { id } = payload;
+
+    connection.query(`SELECT * FROM snapshots WHERE user_id=${id}`, (err, rows, fields) => {
+        if (err) {
+            res.status(500);
+            console.log(err);
+            return;
+        }
+
+        console.log('return snapshots');
+        res.status(200).send({ snapshots: rows });
+    });
 });
 
 app.listen('3008');

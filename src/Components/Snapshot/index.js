@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { SnapshotDisplay } from './SnapshotDisplay'
+import { SnapshotDisplay } from './SnapshotDisplay';
+import { useHistory } from "react-router-dom";
 
 export const Snapshot = (props) => {
     const { state, state: { user, pieces, plants } } = props;
+    let history = useHistory();
 
     const click = async (event) => {
         console.log(state);
@@ -34,5 +36,9 @@ export const Snapshot = (props) => {
         });
     };
 
-    return <SnapshotDisplay click={click}></SnapshotDisplay>;
+    const gotoSnapshots = (event) =>{
+        history.push("/snapshots");
+    }
+
+    return <SnapshotDisplay click={click} gotoSnapshots={gotoSnapshots}></SnapshotDisplay>;
 };  

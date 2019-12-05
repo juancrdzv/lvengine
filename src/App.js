@@ -37,7 +37,7 @@ function App() {
             <Route exact path='/' render={() => <Login dispatch={dispatch}></Login>} />
             <Route exact path='/game' render={() => <Game state={state} delta={delta}></Game>} />
             <Route exact path='/gardenadmin' render={() => <div>En construccion</div>} />
-            <Route exact path='/snapshots' component={()=> <Snapshots state={state}></Snapshots>}/>
+            <Route exact path='/snapshots' render={()=> <Snapshots state={state}></Snapshots>}/>
           </Switch>
         </BrowserRouter>
       </BoundsContext.Provider>
