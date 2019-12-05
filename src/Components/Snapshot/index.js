@@ -26,7 +26,7 @@ export const Snapshot = (props) => {
 
         let response = await fetch('http://localhost:3008/snapshot', {
             method: 'POST',
-            body: JSON.stringify({ token: user.token, snapshot: jsonSnapshot }),
+            body: JSON.stringify({ token: user.token, id: user.id, snapshot: jsonSnapshot }),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

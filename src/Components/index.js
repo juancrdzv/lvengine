@@ -9,3 +9,4 @@ export * from './Game';
 export * from './Menu';
 export * from './Login';
 export * from './Snapshot';
+export * from './Snapshots';

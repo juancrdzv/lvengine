@@ -14,7 +14,7 @@ let connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'users'
+    database: 'game'
 });
 
 connection.connect();
@@ -33,14 +33,15 @@ app.post('/login', (req, res) => {
             expiresIn: 60 * 60 * 24 // expires in 24 hours
         });
 
-        res.send({
-            token
+        res.status(200).send({
+            token,
+            id: rows[0].id
         });
     });
 });
 
 app.post('/snapshot', (req, res) => {
-    const { body: { token, snapshot } } = req;
+    const { body: { token, snapshot, id } } = req;
 
     let payload = jwt.verify(token, 'Secret Password');
 
@@ -49,10 +50,23 @@ app.post('/snapshot', (req, res) => {
     if (username) {
         const now = new Date()
         const secondsSinceEpoch = Math.round(now.getTime() / 1000)
-        
+
         const jsonName = `${username}${secondsSinceEpoch}`;
+
+        connection.query(`INSERT INTO snapshots (name,data,user_id) VALUES ('${jsonName}','${snapshot}',${id})`, (err, rows, fields) => {
+            if (err) {
+                res.status(500);
+                console.log(err);
+                return;
+            }
+            res.status(200).send({ message: 'Snapshot created' });
+            console.log('snapshot created');
+        });
     }
 });
 
+app.get('/snapshots', (req, res) => { 
+    console.log(req.query);
+});
 
 app.listen('3008');
