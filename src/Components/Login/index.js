@@ -30,14 +30,19 @@ export const Login = props => {
         let json = await response.json();
         if (json.token) {
             dispatch({ type: "SET_USER", payload: json });
-            history.push("/game");
+            history.push("/game/0");
         }
-    }
+    };
+
+    const signIn = (event) =>{
+        history.push("/signin");
+    };
 
     return <LoginDisplay
         onSubmit={onSubmit}
         onChangeUserName={onChangeUserName}
         onChangePassword={onChangePassword}
         username={username}
+        signIn={signIn}
         password={password}></LoginDisplay>;
 };

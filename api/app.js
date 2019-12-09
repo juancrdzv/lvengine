@@ -67,6 +67,13 @@ app.post('/snapshot', (req, res) => {
     }
 });
 
+app.post('/signin', (req, res) => {
+    const { body: { username, password } } = req;
+
+    console.log(username);
+    console.log(password);
+});
+
 app.get('/snapshots', (req, res) => {
     const { query: { tk } } = req;
 
