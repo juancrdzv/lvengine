@@ -68,10 +68,20 @@ app.post('/snapshot', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
-    const { body: { username, password } } = req;
+    const { body: { name, lastName, email, username, password } } = req;
 
     console.log(username);
     console.log(password);
+
+    connection.query(`INSERT INTO user (username,name,last_name,password,email) VALUES ('${username}','${name}','${lastName}','${password}','${email}')`,(err,rows,fields)=>{
+        if (err) {
+            res.status(500);
+            console.log(err);
+            return;
+        }
+        res.status(200).send({ message: 'User created' });
+        console.log('user created');
+    });
 });
 
 app.get('/snapshots', (req, res) => {

@@ -4,8 +4,26 @@ import { SigninDisplay } from "./SiginDisplay";
 
 export const Signin = props => {
     const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
+
+    const onChangeName = (event) => {
+        let val = event.target.value;
+        setName(val);
+    };
+
+    const onChangeLastName = (event) => {
+        let val = event.target.value;
+        setLastName(val);
+    };
+
+    const onChangeEmail = (event) => {
+        let val = event.target.value;
+        setEmail(val);
+    };
 
     const onChangeUserName = (event) => {
         let val = event.target.value;
@@ -30,7 +48,7 @@ export const Signin = props => {
 
         let response = await fetch('http://localhost:3008/signin', {
             method: 'POST',
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ name, lastName, email, username, password }),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -40,6 +58,12 @@ export const Signin = props => {
     };
 
     return <SigninDisplay
+        onChangeName={onChangeName}
+        onChangeLastName={onChangeLastName}
+        onChangeEmail={onChangeEmail}
+        name={name}
+        lastName={lastName}
+        email={email}
         click={click}
         username={username}
         password={password}

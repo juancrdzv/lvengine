@@ -10,7 +10,11 @@ import {
 export function factory(type, x, y) {
   let d = new Date();
   let mili = d.getMilliseconds();
-
+  
+  if(type === "mushromm"){
+    type = "mushrooms";
+  }
+  
   switch (type) {
     case "sunflower":
       return <Sunflower key={mili} ine={mili} x={x} y={y}></Sunflower>;

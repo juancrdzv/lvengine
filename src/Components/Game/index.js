@@ -9,7 +9,14 @@ export const Game = (props) => {
     useEffect(() => {
         const { match: { params: { id } } } = props;
         if (id > 0) {
-            const data = JSON.parse(snapshots[id - 1].data);
+            let data;
+            
+            if (snapshots.length === 1) {
+                data = JSON.parse(snapshots[0].data);
+            } else if(snapshots.length>1){
+                data = JSON.parse(snapshots[id - 1].data);
+            }
+
             data.plants.forEach((d) => {
                 let { x, y, name } = d;
                 name = name.toLowerCase();
